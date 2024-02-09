@@ -16,7 +16,7 @@ describe('resolveValue', () => {
 describe('throwError', () => {
   test('should throw error with provided message', () => {
     const msg = 'This is my awesome error!';
-    
+
     expect(() => {
       throwError(msg);
     }).toThrow(msg);

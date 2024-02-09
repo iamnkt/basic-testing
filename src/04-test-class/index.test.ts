@@ -1,4 +1,9 @@
-import { getBankAccount, InsufficientFundsError, SynchronizationFailedError, TransferFailedError } from '.';
+import {
+  getBankAccount,
+  InsufficientFundsError,
+  SynchronizationFailedError,
+  TransferFailedError,
+} from '.';
 import lodash from 'lodash';
 
 describe('BankAccount', () => {
@@ -46,26 +51,34 @@ describe('BankAccount', () => {
 
   test('should transfer money', () => {
     const balance = account.getBalance();
-    const otherAccountBalance= otherAccount.getBalance();
+    const otherAccountBalance = otherAccount.getBalance();
     account.transfer(transferAmount, otherAccount);
 
     expect(account.getBalance()).toBe(balance - transferAmount);
-    expect(otherAccount.getBalance()).toBe(otherAccountBalance + transferAmount);
+    expect(otherAccount.getBalance()).toBe(
+      otherAccountBalance + transferAmount,
+    );
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
     const balanceMock = 50;
     const requestMock = 1;
-    jest.spyOn(lodash, 'random').mockReturnValueOnce(balanceMock).mockReturnValueOnce(requestMock);
+    jest
+      .spyOn(lodash, 'random')
+      .mockReturnValueOnce(balanceMock)
+      .mockReturnValueOnce(requestMock);
     const balance = await account.fetchBalance();
 
     expect(typeof balance).toBe('number');
-  }); 
+  });
 
   test('should set new balance if fetchBalance returned number', async () => {
     const balanceMock = 50;
     const requestMock = 1;
-    jest.spyOn(lodash, 'random').mockReturnValueOnce(balanceMock).mockReturnValueOnce(requestMock);
+    jest
+      .spyOn(lodash, 'random')
+      .mockReturnValueOnce(balanceMock)
+      .mockReturnValueOnce(requestMock);
     await account.synchronizeBalance();
 
     expect(account.getBalance()).toBe(balanceMock);
@@ -74,8 +87,13 @@ describe('BankAccount', () => {
   test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
     const balanceMock = 50;
     const requestMock = 0;
-    jest.spyOn(lodash, 'random').mockReturnValueOnce(balanceMock).mockReturnValueOnce(requestMock);
-    
-    await expect(account.synchronizeBalance()).rejects.toThrow(SynchronizationFailedError);
+    jest
+      .spyOn(lodash, 'random')
+      .mockReturnValueOnce(balanceMock)
+      .mockReturnValueOnce(requestMock);
+
+    await expect(account.synchronizeBalance()).rejects.toThrow(
+      SynchronizationFailedError,
+    );
   });
 });
