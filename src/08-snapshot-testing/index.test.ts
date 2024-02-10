@@ -1,7 +1,6 @@
 import { generateLinkedList } from './index';
 
 describe('generateLinkedList', () => {
-
   const linkedList = generateLinkedList(['a', 'b', 'c']);
 
   test('should generate linked list from values 1', () => {
