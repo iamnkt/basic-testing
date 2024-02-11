@@ -6,14 +6,14 @@ import {
 } from '.';
 import lodash from 'lodash';
 
+const initialBalance = 20;
+const amount = 30;
+const transferAmount = 10;
+
+const account = getBankAccount(initialBalance);
+const otherAccount = getBankAccount(initialBalance);
+
 describe('BankAccount', () => {
-  const initialBalance = 20;
-  const amount = 30;
-  const transferAmount = 10;
-
-  const account = getBankAccount(initialBalance);
-  const otherAccount = getBankAccount(initialBalance);
-
   test('should create account with initial balance', () => {
     expect(account.getBalance()).toBe(initialBalance);
   });
